@@ -1,7 +1,7 @@
 <template>
     <div :id="id">
         <img :src="src" :alt="name">
-        <div>
+        <div class="bg-warning">
             <span>{{ name }}</span>
         </div>
     </div>

@@ -2,9 +2,14 @@
   <header>
     <AppHeader />
   </header>
-  <main>
-    <div class="container">
-      <div class="row">
+  <main class="bg-warning">
+    <div class="container bg-white">
+      <div class="bg-black fw-bold text-white p-2">
+        <span>
+          Sono state trovate {{ store.cardList.length }} carte
+        </span>
+      </div>
+      <div class="row py-4 gy-2">
         <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in store.cardList">
           <AppCard :name="item.name" :id="item.id" :src="item.card_images[0].image_url" />
 

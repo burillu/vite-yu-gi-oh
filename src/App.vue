@@ -47,6 +47,7 @@ export default {
   methods: {
     cardPrint() {
       store.loading = true;
+      // return axios.get(store.apiUrl,{params:this.params})
       axios.get(store.apiUrl, { params: this.params }).then((resp) => {
         //console.log(resp);
 
@@ -66,7 +67,7 @@ export default {
       }
       this.cardPrint()
 
-      console.log(this.params)
+
     },
     archetypePrint() {
       axios.get(store.apiUrlArchetype).then(resp => {
@@ -76,6 +77,9 @@ export default {
     }
   },
   components: { AppHeader, AppCard, AppSelect, AppCardsCount, AppLoader },
+  computed: {
+
+  },
   mounted() {
     // axios.get(store.apiUrl).then((resp) => {
     //   //console.log(resp);
@@ -84,9 +88,26 @@ export default {
     // })
   },
   created() {
-    this.cardPrint();
-    this.archetypePrint();
-    // PromiseAll()
+    // this.cardPrint();
+    // this.archetypePrint();
+
+    //per provare Promise
+    function cardBase() {
+
+      return axios.get(store.apiUrl, { params: { num: 20, offset: 0 } })
+    }
+    function archetypeBase() {
+      return axios.get(store.apiUrlArchetype)
+    }
+    Promise.all([cardBase(), archetypeBase()])
+      .then(function (results) {
+        const acct = results[0];
+        const perm = results[1];
+        store.cardList = acct.data.data;
+        store.archetype = perm.data
+      }).finally(function () {
+        store.loading = false;
+      });
   }
 }
 </script>

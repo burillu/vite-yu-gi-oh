@@ -9,7 +9,7 @@
           Sono state trovate {{ store.cardList.length }} carte
         </span>
       </div>
-      <AppSelect />
+      <AppSelect @filter-card="filterSelection" />
       <div class="row py-4 gy-2">
         <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in store.cardList">
           <AppCard :name="item.name" :id="item.id" :src="item.card_images[0].image_url" />
@@ -37,7 +37,8 @@ export default {
       store,
       params: {
         num: 20,
-        offset: 0
+        offset: 0,
+        archetype: null
       }
     };
   },
@@ -48,6 +49,11 @@ export default {
         store.cardList = resp.data.data
         //console.log(store.cardList)
       })
+    },
+    filterSelection(data) {
+      this.params.archetype = data
+      this.cardPrint()
+      console.log(this.params)
     }
   },
   components: { AppHeader, AppCard, AppSelect },

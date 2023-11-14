@@ -9,6 +9,7 @@
           Sono state trovate {{ store.cardList.length }} carte
         </span>
       </div>
+      <AppSelect />
       <div class="row py-4 gy-2">
         <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in store.cardList">
           <AppCard :name="item.name" :id="item.id" :src="item.card_images[0].image_url" />
@@ -25,26 +26,31 @@ import { store } from './data/store.js'
 import axios from 'axios';
 import AppCard from './components/AppCard.vue';
 import AppHeader from './components/AppHeader.vue';
+import AppSelect from './components/AppSelect.vue';
 
 
 export default {
   name: 'App',
   data() {
     return {
-      nome: "pippo",
-      store
+
+      store,
+      params: {
+        num: 20,
+        offset: 0
+      }
     };
   },
   methods: {
     cardPrint() {
-      axios.get(store.apiUrl).then((resp) => {
+      axios.get(store.apiUrl, { params: this.params }).then((resp) => {
         //console.log(resp);
         store.cardList = resp.data.data
         //console.log(store.cardList)
       })
     }
   },
-  components: { AppHeader, AppCard },
+  components: { AppHeader, AppCard, AppSelect },
   mounted() {
     // axios.get(store.apiUrl).then((resp) => {
     //   //console.log(resp);

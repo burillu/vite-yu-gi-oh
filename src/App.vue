@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     cardPrint() {
+      store.loading = true;
       axios.get(store.apiUrl, { params: this.params }).then((resp) => {
         //console.log(resp);
 

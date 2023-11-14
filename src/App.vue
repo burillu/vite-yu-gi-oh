@@ -51,8 +51,15 @@ export default {
       })
     },
     filterSelection(data) {
-      this.params.archetype = data
+
+      if (data) {
+        this.params.archetype = data;
+
+      } else {
+        this.params.archetype = null;
+      }
       this.cardPrint()
+
       console.log(this.params)
     }
   },

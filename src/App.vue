@@ -61,6 +61,12 @@ export default {
       this.cardPrint()
 
       console.log(this.params)
+    },
+    archetypePrint() {
+      axios.get(store.apiUrlArchetype).then(resp => {
+        console.log(resp)
+        store.archetype = resp.data
+      })
     }
   },
   components: { AppHeader, AppCard, AppSelect },
@@ -73,6 +79,7 @@ export default {
   },
   created() {
     this.cardPrint();
+    this.archetypePrint();
   }
 }
 </script>

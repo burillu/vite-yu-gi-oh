@@ -38,7 +38,7 @@ export default {
 
       store,
       params: {
-        num: 20,
+        num: 100,
         offset: 0,
         archetype: null
       }
@@ -94,7 +94,7 @@ export default {
     //per provare Promise
     function cardBase() {
 
-      return axios.get(store.apiUrl, { params: { num: 20, offset: 0 } })
+      return axios.get(store.apiUrl, { params: { num: 150, offset: 0 } })
     }
     function archetypeBase() {
       return axios.get(store.apiUrlArchetype)

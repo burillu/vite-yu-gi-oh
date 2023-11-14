@@ -7,8 +7,11 @@
       <AppCardsCount :num="store.cardList.length" />
 
       <AppSelect @filter-card="filterSelection" />
+      <AppLoader v-if="store.loading" />
       <div class="row py-4 gy-2">
+
         <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in store.cardList">
+
           <AppCard :name="item.name" :id="item.id" :src="item.card_images[0].image_url" />
 
 
@@ -25,6 +28,7 @@ import AppCard from './components/AppCard.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppSelect from './components/AppSelect.vue';
 import AppCardsCount from './components/AppCardsCount.vue';
+import AppLoader from './components/AppLoader.vue'
 
 
 export default {
@@ -44,9 +48,12 @@ export default {
     cardPrint() {
       axios.get(store.apiUrl, { params: this.params }).then((resp) => {
         //console.log(resp);
+
         store.cardList = resp.data.data
         //console.log(store.cardList)
-      })
+      }).finally(function () {
+        store.loading = false;
+      });
     },
     filterSelection(data) {
 
@@ -67,7 +74,7 @@ export default {
       })
     }
   },
-  components: { AppHeader, AppCard, AppSelect, AppCardsCount },
+  components: { AppHeader, AppCard, AppSelect, AppCardsCount, AppLoader },
   mounted() {
     // axios.get(store.apiUrl).then((resp) => {
     //   //console.log(resp);
@@ -78,6 +85,7 @@ export default {
   created() {
     this.cardPrint();
     this.archetypePrint();
+    // PromiseAll()
   }
 }
 </script>

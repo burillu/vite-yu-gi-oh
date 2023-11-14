@@ -4,11 +4,8 @@
   </header>
   <main class="bg-warning">
     <div class="container bg-white">
-      <div class="bg-black fw-bold text-white p-2">
-        <span>
-          Sono state trovate {{ store.cardList.length }} carte
-        </span>
-      </div>
+      <AppCardsCount :num="store.cardList.length" />
+
       <AppSelect @filter-card="filterSelection" />
       <div class="row py-4 gy-2">
         <div class="col-6 col-md-4 col-lg-3" v-for="(item, index) in store.cardList">
@@ -27,6 +24,7 @@ import axios from 'axios';
 import AppCard from './components/AppCard.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppSelect from './components/AppSelect.vue';
+import AppCardsCount from './components/AppCardsCount.vue';
 
 
 export default {
@@ -64,12 +62,12 @@ export default {
     },
     archetypePrint() {
       axios.get(store.apiUrlArchetype).then(resp => {
-        console.log(resp)
+        //console.log(resp)
         store.archetype = resp.data
       })
     }
   },
-  components: { AppHeader, AppCard, AppSelect },
+  components: { AppHeader, AppCard, AppSelect, AppCardsCount },
   mounted() {
     // axios.get(store.apiUrl).then((resp) => {
     //   //console.log(resp);
